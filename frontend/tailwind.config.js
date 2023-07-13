@@ -10,6 +10,10 @@ module.exports = {
       fontFamily: {
         rubik: ["Rubik", "sans-serif"],
       },
+      backgroundImage: {
+        desktop: `url("/src/images/pattern-bg-desktop.png")`,
+        mobile: `url("/src/images/pattern-bg-mobile.png")`,
+      },
     },
   },
   plugins: [],
