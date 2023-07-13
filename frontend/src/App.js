@@ -1,4 +1,5 @@
 import FormInput from "./components/FormInput";
+import "leaflet/dist/leaflet.css";
 import LeafletMap from "./components/LeafletMap";
 
 function App() {
