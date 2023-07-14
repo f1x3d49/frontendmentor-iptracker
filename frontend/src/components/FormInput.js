@@ -1,25 +1,12 @@
 import React, { useState } from "react";
 import { ReactComponent as Arrow } from "../images/icon-arrow.svg";
-import axios from "axios";
-const FormInput = ({ ip, setIP, setInfo }) => {
+const FormInput = ({ ip, setIP, fetchData }) => {
   // eslint-disable-next-line no-unused-vars
   const [valid, setValid] = useState(true);
 
   const handleChange = (e) => {
     setIP(e.target.value);
     setValid(true);
-  };
-
-  //Geo API Call
-  const fetchData = () => {
-    axios
-      .get(
-        `https://geo.ipify.org/api/v2/country,city?apiKey=${process.env.REACT_APP_API_KEY}&ipAddress=${ip}`
-      )
-      .then((res) => {
-        setInfo(res.data);
-        console.log(res.data.location.lat);
-      });
   };
 
   const handleSubmit = (e) => {
@@ -31,6 +18,7 @@ const FormInput = ({ ip, setIP, setInfo }) => {
       setValid(false);
       setIP("");
     } else {
+      console.log(valid);
       fetchData();
     }
   };

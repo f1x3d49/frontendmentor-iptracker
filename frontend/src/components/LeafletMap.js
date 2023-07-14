@@ -1,4 +1,5 @@
 import React from "react";
+import RecenterAutomatically from "./MapView";
 import location from "../images/icon-location.svg";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import { Icon } from "leaflet";
@@ -8,7 +9,7 @@ const LeafletMap = ({ info }) => {
     iconUrl: location,
   });
 
-  const position = [34.04915, -118.09462];
+  const position = [info.lat, info.lon];
 
   return (
     <div className="map" id="map">
@@ -18,6 +19,7 @@ const LeafletMap = ({ info }) => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Marker position={position} icon={customIcon}></Marker>
+        <RecenterAutomatically lat={info.lat} lon={info.lon} />
       </MapContainer>
     </div>
   );
