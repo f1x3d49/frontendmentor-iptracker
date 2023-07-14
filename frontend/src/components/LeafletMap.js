@@ -3,12 +3,12 @@ import location from "../images/icon-location.svg";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import { Icon } from "leaflet";
 
-const position = [52.51, 13.38];
-
-const LeafletMap = () => {
+const LeafletMap = ({ info }) => {
   const customIcon = new Icon({
     iconUrl: location,
   });
+
+  const position = [34.04915, -118.09462];
 
   return (
     <div className="map" id="map">
