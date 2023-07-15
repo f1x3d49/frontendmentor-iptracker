@@ -1,40 +1,45 @@
-import React, { useState } from "react";
+import React from "react";
+import { useFormik } from "formik";
+import * as yup from "yup";
 import { ReactComponent as Arrow } from "../images/icon-arrow.svg";
 const FormInput = ({ ip, setIP, fetchData }) => {
   // eslint-disable-next-line no-unused-vars
-  const [valid, setValid] = useState(true);
 
-  const handleChange = (e) => {
-    setIP(e.target.value);
-    setValid(true);
-  };
+  const IPRules =
+    /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Regular expression to validate IP address
-    const ipRegex = /^([0-9]{1,3}\.){3}[0-9]{1,3}$/;
+  // Yup validation schema
+  const validationSchema = yup.object().shape({
+    IPAdress: yup
+      .string()
+      .required("Required")
+      .matches(IPRules, { message: "It is not a valid IP Adress" }),
+  });
 
-    if (!ipRegex.test(ip)) {
-      setValid(false);
-      setIP("");
-    } else {
-      console.log(valid);
+  // initial Formik values
+  const formik = useFormik({
+    initialValues: {
+      IPAdress: ip,
+    },
+    onSubmit: (values) => {
+      setIP(values.IPAdress);
       fetchData();
-    }
-  };
+    },
+    validate: validationSchema,
+  });
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={formik.handleSubmit}>
       <label htmlFor="input">
         <div className="flex">
           <input
-            value={ip}
-            onChange={handleChange}
+            value={formik.values.IPAdress}
+            onChange={formik.handleChange}
             type="text"
             placeholder="Search for any IP adress or domain"
             className="md:w-[350px] h-[45px] w-[250px] placeholder:text-sm md:placeholder:text-lg rounded-l-xl pl-4 focus:outline-0 focus:border-0"
           />
-          <button>
+          <button type="submit">
             <Arrow className="h-[45px] w-full pl-5 pt-4 rounded-r-xl bg-black" />
           </button>
         </div>
