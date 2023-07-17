@@ -10,7 +10,7 @@ const FormInput = ({ ip, setIP, fetchData }) => {
 
   // Yup validation schema
   const validationSchema = yup.object().shape({
-    IPAdress: yup
+    ipAdress: yup
       .string()
       .required("Required")
       .matches(IPRules, { message: "It is not a valid IP Adress" }),
@@ -19,13 +19,13 @@ const FormInput = ({ ip, setIP, fetchData }) => {
   // initial Formik values
   const formik = useFormik({
     initialValues: {
-      IPAdress: ip,
+      ipAdress: ip,
     },
     onSubmit: (values) => {
-      setIP(values.IPAdress);
+      setIP(values.ipAdress);
       fetchData();
     },
-    validate: validationSchema,
+    validationSchema: validationSchema,
   });
 
   return (
@@ -33,9 +33,10 @@ const FormInput = ({ ip, setIP, fetchData }) => {
       <label htmlFor="input">
         <div className="flex">
           <input
-            value={formik.values.IPAdress}
+            value={formik.values.ipAdress}
             onChange={formik.handleChange}
             type="text"
+            name="ip"
             placeholder="Search for any IP adress or domain"
             className="md:w-[350px] h-[45px] w-[250px] placeholder:text-sm md:placeholder:text-lg rounded-l-xl pl-4 focus:outline-0 focus:border-0"
           />
