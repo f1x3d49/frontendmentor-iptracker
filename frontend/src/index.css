@@ -5,6 +5,8 @@
 @tailwind utilities;
 
 .leaflet-container {
+  z-index: 0;
+  position: relative;
   width: full;
   min-height: 539px;
 }
