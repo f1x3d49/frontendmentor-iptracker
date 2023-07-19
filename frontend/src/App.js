@@ -29,7 +29,7 @@ function App() {
           setInfo={setInfo}
           fetchData={fetchData}
         />
-        <DisplayTab />
+        {info && <DisplayTab info={info} />}
       </div>
       {info && <LeafletMap info={info} />}
     </div>
