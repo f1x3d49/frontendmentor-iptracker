@@ -8,11 +8,16 @@ import DisplayTab from "./components/DisplayTab";
 function App() {
   const [IP, setIP] = useState("192.212.174.101");
   const [info, setInfo] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   //Geo API Call
   const fetchData = useCallback(() => {
     axios.get(`http://ip-api.com/json/${IP}`).then((res) => {
       setInfo(res.data);
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
       console.log(res.data);
     });
   }, [setInfo, IP]);
@@ -29,7 +34,7 @@ function App() {
           setInfo={setInfo}
           fetchData={fetchData}
         />
-        {info && <DisplayTab info={info} />}
+        {info && <DisplayTab info={info} loading={loading} />}
       </div>
       {info && <LeafletMap info={info} />}
     </div>
